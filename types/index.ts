@@ -25,7 +25,7 @@ export interface Certification {
   duration: string;
   fee: number;
   benefits: string[];
-  image?: string;
+  image: string;
 }
 
 export interface Notice {
