@@ -1,11 +1,11 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowRight, CheckCircle, ExternalLink } from 'lucide-react';
+import { ArrowRight, CheckCircle, ExternalLink, Leaf, Sparkles, HandHeart } from 'lucide-react';
 import PageHeader from '@/components/common/PageHeader';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Card, CardContent } from '@/components/ui/card';
 import { supportPrograms } from '@/data/support';
+import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = {
   title: '정부지원사업',
@@ -13,9 +13,15 @@ export const metadata: Metadata = {
 };
 
 const statusLabels = {
-  open: { text: '접수중', className: 'bg-green-100 text-green-700' },
-  closed: { text: '마감', className: 'bg-gray-100 text-gray-600' },
-  upcoming: { text: '예정', className: 'bg-blue-100 text-blue-700' }
+  open: { text: '접수중', className: 'bg-sage-100 text-sage-700 border-sage-200' },
+  closed: { text: '마감', className: 'bg-cream-200 text-brown-500 border-cream-300' },
+  upcoming: { text: '예정', className: 'bg-amber-100 text-amber-700 border-amber-200' }
+};
+
+const statusGradients = {
+  open: 'from-sage-400 to-sage-500',
+  closed: 'from-brown-300 to-brown-400',
+  upcoming: 'from-amber-400 to-amber-500'
 };
 
 export default function SupportPage() {
@@ -27,48 +33,71 @@ export default function SupportPage() {
         breadcrumbs={[{ label: '정부지원사업' }]}
       />
 
-      <section className="section-padding">
-        <div className="container-custom">
+      <section className="section-padding relative overflow-hidden">
+        {/* Background Decorations */}
+        <div className="absolute top-40 right-0 w-72 h-72 rounded-full bg-coral-100/30 blur-3xl" />
+        <div className="absolute bottom-40 left-0 w-80 h-80 rounded-full bg-sage-100/30 blur-3xl" />
+        <div className="absolute top-20 left-1/4 opacity-5">
+          <Leaf className="w-40 h-40 text-sage-600 rotate-12" />
+        </div>
+
+        <div className="container-custom relative">
           <div className="max-w-4xl mx-auto">
             {/* 지원사업 목록 */}
             <div className="space-y-8">
               {supportPrograms.map((program, index) => (
-                <Card key={program.id} className="border-0 shadow-xl overflow-hidden">
-                  <div className={`h-2 ${
-                    program.status === 'open' ? 'bg-green-500' :
-                    program.status === 'upcoming' ? 'bg-blue-500' :
-                    'bg-gray-400'
-                  }`} />
-                  <CardContent className="p-8">
+                <div
+                  key={program.id}
+                  className="card-floating overflow-hidden animate-fade-in-up"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  {/* Top Gradient Bar */}
+                  <div className={cn(
+                    'h-2 bg-gradient-to-r',
+                    statusGradients[program.status]
+                  )} />
+
+                  <div className="p-8">
                     <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
-                      <h2 className="text-2xl font-bold text-gray-900">{program.title}</h2>
-                      <Badge className={statusLabels[program.status].className}>
+                      <h2 className="font-serif text-2xl font-bold text-brown-800">{program.title}</h2>
+                      <Badge className={cn(statusLabels[program.status].className, 'py-1.5 px-4')}>
+                        <Sparkles className="w-3 h-3 mr-1.5" />
                         {statusLabels[program.status].text}
                       </Badge>
                     </div>
 
-                    <p className="text-gray-600 mb-6 leading-relaxed">
+                    <p className="text-brown-600 mb-6 leading-relaxed text-lg">
                       {program.description}
                     </p>
 
-                    <div className="grid md:grid-cols-2 gap-6 mb-6">
+                    <div className="grid md:grid-cols-2 gap-8 mb-6">
                       <div>
-                        <h3 className="font-bold text-gray-900 mb-3">지원 자격</h3>
-                        <ul className="space-y-2">
+                        <h3 className="font-bold text-brown-800 mb-4 flex items-center gap-2">
+                          <span className="w-2 h-2 rounded-full bg-sage-400" />
+                          지원 자격
+                        </h3>
+                        <ul className="space-y-3">
                           {program.eligibility.map((item, i) => (
-                            <li key={i} className="flex items-start gap-2 text-gray-600">
-                              <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 shrink-0" />
+                            <li key={i} className="flex items-start gap-3 text-brown-600">
+                              <div className="w-5 h-5 rounded-full bg-sage-100 flex items-center justify-center shrink-0 mt-0.5">
+                                <CheckCircle className="w-3.5 h-3.5 text-sage-600" />
+                              </div>
                               <span>{item}</span>
                             </li>
                           ))}
                         </ul>
                       </div>
                       <div>
-                        <h3 className="font-bold text-gray-900 mb-3">지원 혜택</h3>
-                        <ul className="space-y-2">
+                        <h3 className="font-bold text-brown-800 mb-4 flex items-center gap-2">
+                          <span className="w-2 h-2 rounded-full bg-coral-400" />
+                          지원 혜택
+                        </h3>
+                        <ul className="space-y-3">
                           {program.benefits.map((item, i) => (
-                            <li key={i} className="flex items-start gap-2 text-gray-600">
-                              <CheckCircle className="w-4 h-4 text-purple-500 mt-0.5 shrink-0" />
+                            <li key={i} className="flex items-start gap-3 text-brown-600">
+                              <div className="w-5 h-5 rounded-full bg-coral-100 flex items-center justify-center shrink-0 mt-0.5">
+                                <CheckCircle className="w-3.5 h-3.5 text-coral-600" />
+                              </div>
                               <span>{item}</span>
                             </li>
                           ))}
@@ -76,19 +105,36 @@ export default function SupportPage() {
                       </div>
                     </div>
 
-                    <div className="flex flex-wrap items-center justify-between gap-4 pt-6 border-t">
-                      <p className="text-sm text-gray-500">
-                        신청기간: <span className="font-medium text-gray-700">{program.applicationPeriod}</span>
+                    <div className="flex flex-wrap items-center justify-between gap-4 pt-6 border-t-2 border-cream-200">
+                      <p className="text-brown-500">
+                        신청기간: <span className="font-medium text-brown-700">{program.applicationPeriod}</span>
                       </p>
                       <div className="flex gap-3">
-                        <Button asChild variant="outline">
+                        <Button
+                          asChild
+                          className={cn(
+                            'rounded-full px-6 py-5 font-medium',
+                            'bg-transparent border-2 border-sage-200 text-sage-600',
+                            'hover:bg-sage-500 hover:text-white hover:border-sage-500',
+                            'transition-all duration-300'
+                          )}
+                        >
                           <Link href="/support/how-to-apply">
                             신청방법 보기
-                            <ArrowRight className="ml-1 w-4 h-4" />
+                            <ArrowRight className="ml-2 w-4 h-4" />
                           </Link>
                         </Button>
                         {program.status === 'open' && (
-                          <Button asChild className="bg-purple-600 hover:bg-purple-700">
+                          <Button
+                            asChild
+                            className={cn(
+                              'rounded-full px-6 py-5 font-medium',
+                              'bg-gradient-to-r from-coral-500 to-coral-400',
+                              'hover:from-coral-600 hover:to-coral-500',
+                              'shadow-lg shadow-coral-500/25',
+                              'transition-all duration-300'
+                            )}
+                          >
                             <Link href="/contact">
                               상담 신청
                             </Link>
@@ -96,14 +142,23 @@ export default function SupportPage() {
                         )}
                       </div>
                     </div>
-                  </CardContent>
-                </Card>
+                  </div>
+                </div>
               ))}
             </div>
 
             {/* 관련 링크 */}
-            <div className="mt-12 bg-gray-50 rounded-2xl p-8">
-              <h3 className="text-xl font-bold text-gray-900 mb-6">관련 사이트 바로가기</h3>
+            <div className={cn(
+              'mt-12 rounded-3xl p-8',
+              'bg-gradient-to-r from-cream-100 to-cream-200',
+              'border-2 border-cream-300'
+            )}>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 rounded-xl bg-sage-100 flex items-center justify-center">
+                  <HandHeart className="w-5 h-5 text-sage-600" />
+                </div>
+                <h3 className="font-serif text-xl font-bold text-brown-800">관련 사이트 바로가기</h3>
+              </div>
               <div className="grid md:grid-cols-2 gap-4">
                 {[
                   { name: 'HRD-Net (직업훈련포털)', url: 'https://www.hrd.go.kr' },
@@ -116,15 +171,27 @@ export default function SupportPage() {
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow group"
+                    className={cn(
+                      'flex items-center justify-between p-4 rounded-2xl',
+                      'bg-white border-2 border-cream-200',
+                      'hover:border-coral-200 hover:shadow-lg',
+                      'transition-all duration-300 group'
+                    )}
                   >
-                    <span className="font-medium text-gray-700 group-hover:text-purple-600">
+                    <span className="font-medium text-brown-700 group-hover:text-coral-600 transition-colors">
                       {link.name}
                     </span>
-                    <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-purple-600" />
+                    <ExternalLink className="w-4 h-4 text-brown-400 group-hover:text-coral-600 transition-colors" />
                   </a>
                 ))}
               </div>
+            </div>
+
+            {/* Bottom Decorative */}
+            <div className="mt-16 flex justify-center items-center gap-3">
+              <div className="w-16 h-1 rounded-full bg-gradient-to-r from-coral-400 to-coral-500" />
+              <div className="w-3 h-3 rounded-full bg-sage-400" />
+              <div className="w-16 h-1 rounded-full bg-gradient-to-r from-sage-400 to-sage-500" />
             </div>
           </div>
         </div>

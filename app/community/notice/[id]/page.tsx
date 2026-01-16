@@ -1,11 +1,12 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ArrowLeft, Calendar, Eye, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowLeft, Calendar, Eye, ChevronLeft, ChevronRight, Leaf, Bell } from 'lucide-react';
 import PageHeader from '@/components/common/PageHeader';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { notices, getNoticeById } from '@/data/notices';
+import { cn } from '@/lib/utils';
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -54,37 +55,49 @@ export default async function NoticeDetailPage({ params }: Props) {
         ]}
       />
 
-      <section className="section-padding">
-        <div className="container-custom">
+      <section className="section-padding relative overflow-hidden">
+        {/* Background Decorations */}
+        <div className="absolute top-40 right-0 w-72 h-72 rounded-full bg-coral-100/30 blur-3xl" />
+        <div className="absolute bottom-40 left-0 w-80 h-80 rounded-full bg-sage-100/30 blur-3xl" />
+        <div className="absolute top-20 right-1/4 opacity-5">
+          <Leaf className="w-40 h-40 text-sage-600 -rotate-12" />
+        </div>
+
+        <div className="container-custom relative">
           <div className="max-w-4xl mx-auto">
             {/* 뒤로가기 */}
             <Link
               href="/community/notice"
-              className="inline-flex items-center gap-2 text-gray-600 hover:text-purple-600 mb-6 transition-colors"
+              className="inline-flex items-center gap-2 text-brown-600 hover:text-coral-600 mb-6 transition-colors group"
             >
-              <ArrowLeft className="w-4 h-4" />
+              <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
               목록으로
             </Link>
 
             {/* 게시글 */}
-            <article className="bg-white rounded-2xl shadow-lg overflow-hidden">
+            <article className="card-floating overflow-hidden animate-fade-in-up">
               {/* 헤더 */}
-              <div className="p-6 md:p-8 border-b">
-                <div className="flex flex-wrap items-center gap-2 mb-3">
+              <div className="p-6 md:p-8 border-b-2 border-cream-200">
+                <div className="flex flex-wrap items-center gap-2 mb-4">
                   {notice.isImportant && (
-                    <Badge className="bg-purple-100 text-purple-700">중요</Badge>
+                    <Badge className="bg-coral-100 text-coral-700 border-coral-200">
+                      <Bell className="w-3 h-3 mr-1" />
+                      중요
+                    </Badge>
                   )}
-                  <Badge variant="outline">{notice.category}</Badge>
+                  <Badge className="bg-cream-100 text-brown-600 border-cream-200">
+                    {notice.category}
+                  </Badge>
                 </div>
-                <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+                <h1 className="font-serif text-2xl md:text-3xl font-bold text-brown-800 mb-4">
                   {notice.title}
                 </h1>
-                <div className="flex items-center gap-4 text-sm text-gray-500">
-                  <span className="flex items-center gap-1">
+                <div className="flex items-center gap-4 text-sm text-brown-500">
+                  <span className="flex items-center gap-1.5">
                     <Calendar className="w-4 h-4" />
                     {notice.date}
                   </span>
-                  <span className="flex items-center gap-1">
+                  <span className="flex items-center gap-1.5">
                     <Eye className="w-4 h-4" />
                     조회 {notice.views}
                   </span>
@@ -95,7 +108,7 @@ export default async function NoticeDetailPage({ params }: Props) {
               <div className="p-6 md:p-8">
                 <div className="prose prose-lg max-w-none">
                   {notice.content.split('\n').map((paragraph, index) => (
-                    <p key={index} className="text-gray-700 leading-relaxed mb-4">
+                    <p key={index} className="text-brown-700 leading-relaxed mb-4">
                       {paragraph}
                     </p>
                   ))}
@@ -104,34 +117,57 @@ export default async function NoticeDetailPage({ params }: Props) {
             </article>
 
             {/* 이전/다음 글 */}
-            <div className="mt-6 bg-white rounded-2xl shadow-lg overflow-hidden divide-y">
+            <div className="mt-6 card-floating overflow-hidden divide-y divide-cream-200 animate-fade-in-up" style={{ animationDelay: '100ms' }}>
               {nextNotice && (
                 <Link
                   href={`/community/notice/${nextNotice.id}`}
-                  className="flex items-center gap-4 p-4 hover:bg-gray-50 transition-colors"
+                  className="flex items-center gap-4 p-4 hover:bg-cream-50 transition-colors group"
                 >
-                  <ChevronRight className="w-5 h-5 text-gray-400" />
-                  <span className="text-sm text-gray-500 shrink-0">다음 글</span>
-                  <span className="text-gray-900 truncate">{nextNotice.title}</span>
+                  <div className="w-8 h-8 rounded-lg bg-coral-100 flex items-center justify-center">
+                    <ChevronRight className="w-5 h-5 text-coral-600" />
+                  </div>
+                  <span className="text-sm text-brown-500 shrink-0 font-medium">다음 글</span>
+                  <span className="text-brown-800 truncate group-hover:text-coral-600 transition-colors">
+                    {nextNotice.title}
+                  </span>
                 </Link>
               )}
               {prevNotice && (
                 <Link
                   href={`/community/notice/${prevNotice.id}`}
-                  className="flex items-center gap-4 p-4 hover:bg-gray-50 transition-colors"
+                  className="flex items-center gap-4 p-4 hover:bg-cream-50 transition-colors group"
                 >
-                  <ChevronLeft className="w-5 h-5 text-gray-400" />
-                  <span className="text-sm text-gray-500 shrink-0">이전 글</span>
-                  <span className="text-gray-900 truncate">{prevNotice.title}</span>
+                  <div className="w-8 h-8 rounded-lg bg-sage-100 flex items-center justify-center">
+                    <ChevronLeft className="w-5 h-5 text-sage-600" />
+                  </div>
+                  <span className="text-sm text-brown-500 shrink-0 font-medium">이전 글</span>
+                  <span className="text-brown-800 truncate group-hover:text-coral-600 transition-colors">
+                    {prevNotice.title}
+                  </span>
                 </Link>
               )}
             </div>
 
             {/* 목록 버튼 */}
             <div className="mt-8 text-center">
-              <Button asChild variant="outline">
+              <Button
+                asChild
+                className={cn(
+                  'rounded-full px-8 py-6 font-medium',
+                  'bg-transparent border-2 border-coral-200 text-coral-600',
+                  'hover:bg-coral-500 hover:text-white hover:border-coral-500',
+                  'transition-all duration-300'
+                )}
+              >
                 <Link href="/community/notice">목록으로</Link>
               </Button>
+            </div>
+
+            {/* Bottom Decorative */}
+            <div className="mt-16 flex justify-center items-center gap-3">
+              <div className="w-16 h-1 rounded-full bg-gradient-to-r from-coral-400 to-coral-500" />
+              <div className="w-3 h-3 rounded-full bg-sage-400" />
+              <div className="w-16 h-1 rounded-full bg-gradient-to-r from-sage-400 to-sage-500" />
             </div>
           </div>
         </div>

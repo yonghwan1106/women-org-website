@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import PageHeader from '@/components/common/PageHeader';
-import { Quote } from 'lucide-react';
+import { Quote, Heart, Sparkles, Leaf } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = {
   title: '인사말',
@@ -19,22 +20,40 @@ export default function GreetingPage() {
         ]}
       />
 
-      <section className="section-padding">
-        <div className="container-custom">
+      <section className="section-padding relative overflow-hidden">
+        {/* Background Decorations */}
+        <div className="absolute top-20 right-0 w-72 h-72 rounded-full bg-coral-100/30 blur-3xl" />
+        <div className="absolute bottom-40 left-0 w-80 h-80 rounded-full bg-sage-100/30 blur-3xl" />
+        <div className="absolute top-40 right-1/4 opacity-5">
+          <Leaf className="w-32 h-32 text-sage-600 rotate-45" />
+        </div>
+
+        <div className="container-custom relative">
           <div className="max-w-4xl mx-auto">
             {/* 인사말 카드 */}
-            <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-              <div className="bg-gradient-to-r from-purple-600 to-purple-700 p-8 text-white">
-                <Quote className="w-12 h-12 opacity-50 mb-4" />
-                <h2 className="text-2xl md:text-3xl font-bold leading-relaxed">
+            <div className="card-floating overflow-hidden animate-fade-in-up">
+              {/* Header with Quote */}
+              <div className="relative bg-gradient-to-br from-coral-400 via-coral-500 to-sage-400 p-10 text-white overflow-hidden">
+                {/* Pattern Overlay */}
+                <div className="absolute inset-0 opacity-10" style={{
+                  backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='white' fill-opacity='1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/svg%3E")`
+                }} />
+
+                {/* Decorative Elements */}
+                <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-white/10 blur-2xl" />
+                <div className="absolute -bottom-10 -left-10 w-32 h-32 rounded-full bg-white/10 blur-2xl" />
+
+                <Quote className="w-14 h-14 opacity-40 mb-6" />
+                <h2 className="font-serif text-2xl md:text-3xl font-bold leading-relaxed relative">
                   &ldquo;여성의 꿈을 현실로 만드는<br />
                   든든한 동반자가 되겠습니다&rdquo;
                 </h2>
               </div>
 
-              <div className="p-8 md:p-12">
-                <div className="prose prose-lg max-w-none text-gray-600">
-                  <p className="text-xl leading-relaxed mb-6">
+              {/* Content */}
+              <div className="p-8 md:p-12 bg-white">
+                <div className="prose prose-lg max-w-none text-brown-600">
+                  <p className="text-xl leading-relaxed mb-6 text-brown-800 font-medium">
                     안녕하세요, 여성단체 이사장 홍길동입니다.
                   </p>
 
@@ -65,27 +84,54 @@ export default function GreetingPage() {
                     언제든지 저희 문을 두드려 주세요. 감사합니다.
                   </p>
 
-                  <div className="border-t pt-6 mt-8">
-                    <p className="text-right text-gray-900 font-bold text-xl">
-                      여성단체 이사장<br />
-                      <span className="text-2xl">홍 길 동</span>
-                    </p>
+                  {/* Signature */}
+                  <div className="border-t-2 border-cream-200 pt-8 mt-8">
+                    <div className="flex items-center justify-end gap-4">
+                      <Heart className="w-5 h-5 text-coral-400 fill-coral-400" />
+                      <div className="text-right">
+                        <p className="text-brown-700 font-medium mb-1">
+                          여성단체 이사장
+                        </p>
+                        <p className="font-serif text-3xl font-bold text-brown-800">
+                          홍 길 동
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* 비전 & 미션 */}
-            <div className="grid md:grid-cols-2 gap-6 mt-12">
-              <div className="bg-purple-50 rounded-2xl p-8">
-                <h3 className="text-xl font-bold text-purple-800 mb-4">VISION</h3>
-                <p className="text-lg text-purple-700 leading-relaxed">
+            <div className="grid md:grid-cols-2 gap-8 mt-12">
+              <div className={cn(
+                'rounded-3xl p-8 animate-fade-in-up',
+                'bg-gradient-to-br from-coral-50 to-coral-100/50',
+                'border-2 border-coral-200'
+              )} style={{ animationDelay: '100ms' }}>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-coral-200 flex items-center justify-center">
+                    <Sparkles className="w-5 h-5 text-coral-600" />
+                  </div>
+                  <h3 className="text-xl font-bold text-coral-700">VISION</h3>
+                </div>
+                <p className="text-lg text-coral-800 leading-relaxed">
                   여성이 당당하게 자신의 가치를 실현하는 사회를 만듭니다.
                 </p>
               </div>
-              <div className="bg-teal-50 rounded-2xl p-8">
-                <h3 className="text-xl font-bold text-teal-800 mb-4">MISSION</h3>
-                <p className="text-lg text-teal-700 leading-relaxed">
+
+              <div className={cn(
+                'rounded-3xl p-8 animate-fade-in-up',
+                'bg-gradient-to-br from-sage-50 to-sage-100/50',
+                'border-2 border-sage-200'
+              )} style={{ animationDelay: '200ms' }}>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-sage-200 flex items-center justify-center">
+                    <Heart className="w-5 h-5 text-sage-600" />
+                  </div>
+                  <h3 className="text-xl font-bold text-sage-700">MISSION</h3>
+                </div>
+                <p className="text-lg text-sage-800 leading-relaxed">
                   맞춤형 교육과 전문 자격증 과정을 통해 여성의 사회 진출과 경제적 자립을 지원합니다.
                 </p>
               </div>
