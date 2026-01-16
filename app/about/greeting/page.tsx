@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import PageHeader from '@/components/common/PageHeader';
 import { Quote, Heart, Sparkles, Leaf } from 'lucide-react';
+import Image from 'next/image';
 import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = {
@@ -53,9 +54,19 @@ export default function GreetingPage() {
               {/* Content */}
               <div className="p-8 md:p-12 bg-white">
                 <div className="prose prose-lg max-w-none text-brown-600">
-                  <p className="text-xl leading-relaxed mb-6 text-brown-800 font-medium">
-                    안녕하세요, 여성단체 이사장 홍길동입니다.
-                  </p>
+                  <div className="flex flex-col md:flex-row gap-8 mb-6 text-brown-800 font-medium items-start">
+                    <div className="relative w-40 h-40 md:w-48 md:h-48 flex-shrink-0 rounded-full overflow-hidden border-4 border-coral-100 shadow-lg">
+                      <Image
+                        src="/images/greeting/chairman.jpg"
+                        alt="홍길동 이사장"
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    <p className="text-xl leading-relaxed mt-4 md:mt-8">
+                      안녕하세요, 여성단체 이사장 홍길동입니다.
+                    </p>
+                  </div>
 
                   <p className="leading-relaxed mb-6">
                     먼저 저희 여성단체 홈페이지를 방문해 주신 여러분께 진심으로 감사의 말씀을 드립니다.

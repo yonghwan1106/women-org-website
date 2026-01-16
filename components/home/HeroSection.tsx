@@ -2,36 +2,24 @@
 
 import Link from 'next/link';
 import { ArrowRight, Sparkles, Leaf, Heart } from 'lucide-react';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 
 export default function HeroSection() {
   return (
     <section className="relative overflow-hidden min-h-[90vh] flex items-center">
       {/* Organic Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-cream-100 via-cream-50 to-sage-50">
-        {/* Decorative Blobs */}
-        <div className="absolute -top-40 -right-40 w-[500px] h-[500px] rounded-full bg-coral-200/30 blur-3xl animate-pulse-soft" />
-        <div className="absolute top-1/3 -left-32 w-[400px] h-[400px] rounded-full bg-sage-200/40 blur-3xl animate-pulse-soft" style={{ animationDelay: '1s' }} />
-        <div className="absolute bottom-20 right-1/3 w-[350px] h-[350px] rounded-full bg-coral-100/50 blur-3xl animate-pulse-soft" style={{ animationDelay: '2s' }} />
-
-        {/* Floating Elements */}
-        <div className="absolute top-1/4 right-1/4 w-4 h-4 rounded-full bg-coral-300 animate-float opacity-60" />
-        <div className="absolute top-1/2 left-1/5 w-3 h-3 rounded-full bg-sage-400 animate-float opacity-50" style={{ animationDelay: '1s' }} />
-        <div className="absolute bottom-1/3 right-1/5 w-5 h-5 rounded-full bg-coral-400 animate-float opacity-40" style={{ animationDelay: '2s' }} />
-
-        {/* Decorative Leaves */}
-        <div className="absolute top-20 left-1/4 opacity-10">
-          <Leaf className="w-32 h-32 text-sage-600 rotate-45" />
-        </div>
-        <div className="absolute bottom-40 right-1/4 opacity-10">
-          <Leaf className="w-24 h-24 text-coral-500 -rotate-12" />
-        </div>
+      {/* Hero Background Image */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-to-r from-cream-50/90 to-sage-50/80 z-10" />
+        <Image
+          src="/images/hero-bg.jpg"
+          alt="Women collaborating in a bright workshop"
+          fill
+          className="object-cover object-center"
+          priority
+        />
       </div>
-
-      {/* Subtle Pattern */}
-      <div className="absolute inset-0 opacity-[0.015]" style={{
-        backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 50m-40 0a40,40 0 1,0 80,0a40,40 0 1,0 -80,0' fill='none' stroke='%233d405b' stroke-width='1'/%3E%3C/svg%3E")`
-      }} />
 
       <div className="container-custom relative z-10">
         <div className="py-24 md:py-32 lg:py-40">

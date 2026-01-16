@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X, ChevronDown, Phone, Leaf } from 'lucide-react';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet';
 import { NAVIGATION, SITE_CONFIG } from '@/lib/constants';
@@ -61,10 +62,15 @@ export default function Header() {
             {/* Logo */}
             <Link href="/" className="group flex items-center gap-3">
               <div className="relative">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-coral-400 to-coral-500 flex items-center justify-center shadow-lg shadow-coral-500/30 group-hover:shadow-coral-500/50 transition-all duration-300 group-hover:scale-105">
-                  <Leaf className="w-6 h-6 text-white" />
+                <div className="w-12 h-12 rounded-2xl bg-white flex items-center justify-center shadow-lg shadow-coral-500/10 group-hover:shadow-coral-500/30 transition-all duration-300 group-hover:scale-105 overflow-hidden">
+                  <Image
+                    src="/images/logo.png"
+                    alt="Logo"
+                    width={48}
+                    height={48}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
-                <div className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-sage-400 border-2 border-white" />
               </div>
               <div className="flex flex-col">
                 <span className="font-serif text-xl font-bold text-brown-800 tracking-tight">
