@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowRight, Bell, Calendar, Eye, Image as ImageIcon, Sparkles } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { getRecentNotices } from '@/data/notices';
@@ -112,8 +113,15 @@ export default function NoticeSection() {
                     href="/community/gallery"
                     className="group relative aspect-square rounded-2xl overflow-hidden"
                   >
-                    {/* Placeholder Gradient */}
-                    <div className={`absolute inset-0 bg-gradient-to-br ${gradientColors[index % gradientColors.length]}`} />
+                    {/* Gallery Image */}
+                    <div className="absolute inset-0">
+                      <Image
+                        src={item.imageUrl}
+                        alt={item.title}
+                        fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                    </div>
 
                     {/* Hover Overlay */}
                     <div className="absolute inset-0 bg-brown-800/0 group-hover:bg-brown-800/50 transition-all duration-300 flex items-center justify-center">
