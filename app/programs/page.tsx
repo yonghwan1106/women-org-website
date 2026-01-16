@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowRight, Clock, Users, Calendar, Filter, Sparkles, Leaf, Award } from 'lucide-react';
 import PageHeader from '@/components/common/PageHeader';
 import { Button } from '@/components/ui/button';
@@ -153,17 +154,13 @@ export default function ProgramsPage() {
                   >
                     {/* 썸네일 */}
                     <div className="relative h-52 overflow-hidden">
-                      <div className={cn(
-                        'absolute inset-0 bg-gradient-to-br',
-                        style.gradient
-                      )} />
-                      {/* Pattern Overlay */}
-                      <div className="absolute inset-0 opacity-10" style={{
-                        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='white' fill-opacity='1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/svg%3E")`
-                      }} />
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="text-white/20 text-[120px] font-serif font-bold">{program.title.charAt(0)}</span>
-                      </div>
+                      <Image
+                        src={program.thumbnail}
+                        alt={program.title}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
                       <div className="absolute top-4 left-4 flex gap-2">
                         <Badge className={cn(statusLabels[program.status].className, 'shadow-sm')}>
                           <Sparkles className="w-3 h-3 mr-1" />
