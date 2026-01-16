@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import Image from 'next/image';
 import PageHeader from '@/components/common/PageHeader';
 import { Badge } from '@/components/ui/badge';
 import { galleryItems } from '@/data/gallery';
@@ -9,15 +10,6 @@ export const metadata: Metadata = {
   title: '갤러리',
   description: '여성단체 활동 사진 갤러리',
 };
-
-const colorClasses = [
-  'from-coral-200 to-coral-300',
-  'from-sage-200 to-sage-300',
-  'from-amber-200 to-amber-300',
-  'from-coral-300 to-sage-200',
-  'from-sage-300 to-amber-200',
-  'from-amber-300 to-coral-200',
-];
 
 export default function GalleryPage() {
   return (
@@ -60,16 +52,13 @@ export default function GalleryPage() {
                 )}
                 style={{ animationDelay: `${index * 50}ms` }}
               >
-                {/* Placeholder 배경 */}
-                <div className={cn(
-                  'absolute inset-0 bg-gradient-to-br',
-                  colorClasses[index % colorClasses.length]
-                )} />
-
-                {/* Pattern Overlay */}
-                <div className="absolute inset-0 opacity-10" style={{
-                  backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='white' fill-opacity='1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/svg%3E")`
-                }} />
+                {/* 실제 이미지 */}
+                <Image
+                  src={item.imageUrl}
+                  alt={item.title}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                />
 
                 {/* 호버 오버레이 */}
                 <div className="absolute inset-0 bg-gradient-to-t from-brown-900/80 via-brown-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end justify-start p-4">
