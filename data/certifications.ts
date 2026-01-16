@@ -24,7 +24,7 @@ export const certifications: Certification[] = [
       '지속적인 보수 교육 기회 제공',
       '취업 연계 서비스 지원'
     ],
-    image: '/images/cert/aquarium.jpg'
+    image: '/images/programs/aquarium.jpg'
   },
   {
     id: 'cert-002',
@@ -49,7 +49,7 @@ export const certifications: Certification[] = [
       '온라인 판매 플랫폼 입점 지원',
       '작가 활동 연계 기회'
     ],
-    image: '/images/cert/terrarium.jpg'
+    image: '/images/programs/terrarium.jpg'
   }
 ];
 

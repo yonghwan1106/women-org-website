@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Award, Clock, Users, CheckCircle, ArrowRight, Leaf, Sparkles } from 'lucide-react';
 import PageHeader from '@/components/common/PageHeader';
 import { Button } from '@/components/ui/button';
@@ -68,16 +69,15 @@ export default function CertificationPage() {
                     <div className="flex flex-col lg:flex-row gap-8">
                       {/* 썸네일 */}
                       <div className={cn(
-                        'w-full lg:w-52 h-52 rounded-3xl flex items-center justify-center shrink-0 relative overflow-hidden',
-                        'bg-gradient-to-br',
-                        style.gradient
+                        'w-full lg:w-52 h-52 rounded-3xl shrink-0 relative overflow-hidden group'
                       )}>
-                        {/* Pattern Overlay */}
-                        <div className="absolute inset-0 opacity-10" style={{
-                          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='white' fill-opacity='1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/svg%3E")`
-                        }} />
-                        <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-white/10 blur-2xl" />
-                        <Award className="w-20 h-20 text-white relative" />
+                        <Image
+                          src={cert.image}
+                          alt={cert.name}
+                          fill
+                          className="object-cover transition-transform duration-500 group-hover:scale-110"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
                       </div>
 
                       {/* 정보 */}
