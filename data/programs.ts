@@ -96,6 +96,38 @@ export const programs: Program[] = [
     governmentSupport: false,
     instructor: '최은지 강사',
     location: '본관 지하 1층 다목적실'
+  },
+  {
+    id: 'prog-007',
+    title: '시민 기자단 양성 과정',
+    category: '직업훈련',
+    description: '취재, 기사 작성, 사진 촬영 등 시민 기자로서 필요한 핵심 역량을 갖추는 교육 과정입니다.',
+    thumbnail: '/images/programs/reporter_training.png',
+    duration: '2개월 (총 16시간)',
+    schedule: '매주 목 10:00-12:00',
+    capacity: 20,
+    currentApplicants: 5,
+    status: 'recruiting',
+    isFree: true,
+    governmentSupport: true,
+    instructor: '이진우 기자',
+    location: '본관 2층 세미나실'
+  },
+  {
+    id: 'prog-008',
+    title: 'AI 활용 콘텐츠 제작 교육',
+    category: '직업훈련',
+    description: '생성형 AI 도구를 활용하여 이미지, 영상, 텍스트 등 다양한 디지털 콘텐츠를 제작하는 실습 과정입니다.',
+    thumbnail: '/images/programs/ai_training.png',
+    duration: '1개월 (총 12시간)',
+    schedule: '매주 화, 목 19:00-20:30',
+    capacity: 15,
+    currentApplicants: 12,
+    status: 'recruiting',
+    isFree: false,
+    governmentSupport: false,
+    instructor: '박미래 강사',
+    location: '본관 1층 컴퓨터실'
   }
 ];
 
